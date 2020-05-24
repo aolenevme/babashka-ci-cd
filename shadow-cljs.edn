@@ -5,7 +5,8 @@
  :dependencies
            []
  :dev-http {8080 "public"}
- :builds
-           {:client {
-                     :target :browser
-                     :modules {:main {:init-fn client.app/init}}}}}
+ :builds   {:client {:target  :browser
+                     :modules {:main {:init-fn client.client/init}}}
+            :server {:target    :node-script
+                     :main      server.server/init
+                     :output-to "built-server/server.js"}}}
