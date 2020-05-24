@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Format the code
+if zprint-clj -i "./**/*.{clj,cljs,cljc,edn}" -o ./
+then
+  git add .
+else
+  echo "Failed to format the code"
+fi
