@@ -1,13 +1,11 @@
 ;; shadow-cljs configuration
 {:source-paths
- ["src/dev"
-  "src/main"
-  "src/test"]
+           ["src"]
 
  :dependencies
- []
+           []
  :dev-http {8080 "public"}
  :builds
- {:frontend {
-             :target :browser
-             :modules {:main {:init-fn purechat.frontend.app/init}}}}}
+           {:client {
+                     :target :browser
+                     :modules {:main {:init-fn client.app/init}}}}}
