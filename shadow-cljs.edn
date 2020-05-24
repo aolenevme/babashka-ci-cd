@@ -1,12 +1,10 @@
 ;; shadow-cljs configuration
-{:source-paths
-           ["src"]
-
- :dependencies
-           []
- :dev-http {8080 "public"}
- :builds   {:client {:target  :browser
-                     :modules {:main {:init-fn client.client/init}}}
-            :server {:target    :node-script
-                     :main      server.server/init
-                     :output-to "built-server/server.js"}}}
+{:builds
+   {:client {:modules {:main {:init-fn client.client/init}}, :target :browser},
+    :server
+      {:main server.server/init,
+       :output-to "built-server/server.js",
+       :target :node-script}},
+ :dependencies [],
+ :dev-http {8080 "public"},
+ :source-paths ["src"]}
