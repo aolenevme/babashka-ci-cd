@@ -1,0 +1,19 @@
+#!/bin/sh
+LC_ALL=C
+
+# Check branch name
+local_branch="$(git rev-parse --abbrev-ref HEAD)"
+
+valid_branch_regex="^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$"
+
+message="Branch names in this project must adhere to this contract: $valid_branch_regex. Your commit will be rejected. You should rename your branch to a valid name and try again."
+
+if [[ $local_branch =~ $valid_branch_regex ]]
+then
+  echo " "
+  exit 0
+else
+  echo "$message"
+  echo " "
+  exit 1
+fi
