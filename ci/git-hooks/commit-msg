@@ -1,0 +1,42 @@
+#!/bin/bash
+
+commit_message_check (){
+      # Get the current branch and apply it to a variable
+      currentbranch=`git branch | grep \* | cut -d ' ' -f2`
+
+      # Gets the commits for the current branch and outputs to file
+      git log $currentbranch --pretty=format:"%H" --not master > shafile.txt
+
+      # loops through the file an gets the message
+      for i in `cat ./shafile.txt`;
+      do
+      # gets the git commit message based on the sha
+      gitmessage=`git log --format=%B -n 1 "$i"`
+
+      messagecheck=`echo $gitmessage | grep "^[feat/|develop/|release/|hotfix/|master/].*: "`
+      if [ -z "$messagecheck" ]
+      then
+            echo "Your commit message must begin with one of the following"
+            echo "  feat/description: "
+            echo "  develop/description: "
+            echo "  release/description: "
+            echo "  hotfix/description: "
+            echo "  master/description: "
+            echo " "
+            echo "The commit message with sha: '$i' failed "
+            echo "Please review the following:"
+            echo " "
+            echo $gitmessage
+            echo " "
+            rm shafile.txt >/dev/null 2>&1
+            set -o errexit
+      else
+            echo "$messagecheck"
+            echo "'$i' commit message passed"
+      fi
+      done
+      rm shafile.txt  >/dev/null 2>&1
+}
+
+# Calling the function
+commit_message_check
