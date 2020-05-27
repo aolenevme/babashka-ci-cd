@@ -1,9 +1,32 @@
 #!/bin/sh
+LC_ALL=C
+
+# Check branch name
+local_branch="$(git rev-parse --abbrev-ref HEAD)"
+
+valid_branch_regex="^(feat|release|hotfix)\/[a-z0-9._-]+$"
+
+message="Branch names in this project must adhere to this contract: $valid_branch_regex. Your commit will be rejected. You should rename your branch to a valid name and try again."
+
+if [[ ! $local_branch =~ $valid_branch_regex ]]
+then
+  echo "$message"
+  echo " "
+  exit 1
+else
+  echo " "
+  exit 0
+fi
+
 
 # Format the code
 if zprint-clj -i "./**/*.{clj,cljs,cljc,edn}" -o ./
 then
   git add .
+  echo " "
+  exit 1
 else
   echo "Failed to format the code"
+  echo " "
+  exit 0
 fi
