@@ -16,7 +16,7 @@ commit_message_check (){
       messagecheck=`echo $gitmessage | grep "^[feat/|develop/|release/|hotfix/|master/].*: "`
       if [ -z "$messagecheck" ]
       then
-            echo "Your commit message must begin with one of the following"
+            echo "Your commit message must begin with one of the following:"
             echo "  feat/description: "
             echo "  develop/description: "
             echo "  release/description: "
@@ -24,18 +24,13 @@ commit_message_check (){
             echo "  master/description: "
             echo " "
             echo "The commit message with sha: '$i' failed "
-            echo "Please review the following:"
-            echo " "
-            echo $gitmessage
-            echo " "
-            rm shafile.txt >/dev/null 2>&1
-            set -o errexit
-      else
-            echo "$messagecheck"
-            echo "'$i' commit message passed"
+            rm shafile.txt
+            exit 1
       fi
       done
-      rm shafile.txt  >/dev/null 2>&1
+
+      rm shafile.txt
+      exit 0
 }
 
 # Calling the function
