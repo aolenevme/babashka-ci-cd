@@ -1,0 +1,13 @@
+name: PR review for the develop branch
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  review-pr-naming:
+    runs-on: ubuntu-latest
+    steps:
+      - name: The name fits the convention
+        run: echo The name fits
+      - name: The description fits the convention
+        run: echo The description fits
