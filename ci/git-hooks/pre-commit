@@ -4,7 +4,7 @@ const util = require("util");
 
 const exec = util.promisify(childProcessExec);
 
-(async () => {
+async function validateBranchName() {
     const localBranch = await exec("git rev-parse --abbrev-ref HEAD");
     const validBranchRegex = new RegExp("^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$", "u");
     const message = `Branch names in this project must adhere to this contract: ${validBranchRegex}.`;
@@ -16,64 +16,30 @@ const exec = util.promisify(childProcessExec);
         console.log(message);
         process.exit(1);
     }
+}
 
-    const res = await exec('zprint-clj -i');
-    console.log(res);
+async function formatClojureScript() {
+    try {
+        const res = await exec("zprint-clj -i ./src/**/*.cljs -o ./");
+
+        console.log(res.stdout);
+    } catch {
+        console.error("Failed to format the ClojureScript code");
+    }
+}
+
+async function lintJavaScript() {
+    try {
+        const res = await exec("yarn lint:js");
+
+        console.log(res.stdout);
+    } catch {
+        console.error("Failed to lint the JavaScript code");
+    }
+}
+
+(async () => {
+    await validateBranchName();
+    await formatClojureScript();
+    await lintJavaScript();
 })();
-
-//
-// if [[$local_branch = ~$valid_branch_regex]]
-//     then
-// echo
-// " "
-// exit
-// 0
-// else
-// echo
-// "$message"
-// echo
-// " "
-// exit
-// 1
-// fi
-//
-// pwd
-//
-// echo
-// "$(pwd)/src/**/*.cljs"
-//
-// #if(zprint - clj - i
-// "$(pwd)/src/**/*.cljs"
-// )
-// #then
-// #  git
-// add.
-//     #echo
-// " "
-// #  exit
-// 0
-// #else
-// #  echo
-// "Failed to format the Clojure code"
-// #  echo
-// " "
-// #  exit
-// 1
-// #fi
-// #
-// #if
-// yarn
-// lint:js
-// #then
-// #  echo
-// " "
-// #  exit
-// 0
-// #else
-// #  echo
-// "Failed to format the Javascript code"
-// #  echo
-// " "
-// #  exit
-// 1
-// #fi
