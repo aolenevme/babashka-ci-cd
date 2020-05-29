@@ -6,6 +6,7 @@
     "shadow-cljs": "2.9.8"
   },
   "dependencies": {
+    "@actions/core": "^1.2.4",
     "zprint-clj": "^0.8.0"
   }
 }
