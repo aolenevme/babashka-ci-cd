@@ -17,23 +17,23 @@ fi
 
 echo "$(pwd)/src/**/*.cljs"
 
-if (zprint-clj -i "$(pwd)/src/**/*.cljs")
-then
-  git add .
-  echo " "
-  exit 0
-else
-  echo "Failed to format the Clojure code"
-  echo " "
-  exit 1
-fi
-
-if yarn lint:js
-then
-  echo " "
-  exit 0
-else
-  echo "Failed to format the Javascript code"
-  echo " "
-  exit 1
-fi
+#if (zprint-clj -i "$(pwd)/src/**/*.cljs")
+#then
+#  git add .
+#  echo " "
+#  exit 0
+#else
+#  echo "Failed to format the Clojure code"
+#  echo " "
+#  exit 1
+#fi
+#
+#if yarn lint:js
+#then
+#  echo " "
+#  exit 0
+#else
+#  echo "Failed to format the Javascript code"
+#  echo " "
+#  exit 1
+#fi
