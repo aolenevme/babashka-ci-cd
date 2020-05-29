@@ -17,9 +17,7 @@ else
   exit 1
 fi
 
-echo "$(pwd)/src/**/*.{clj,cljs,cljc,edn}"
-
-if zprint-clj -i "$(pwd)/src/**/*.{clj,cljs,cljc,edn}" -o "$(pwd)"
+if (zprint-clj -i "$(pwd)/src/**/*.{clj,cljs,cljc,edn}" -o "$(pwd)")
 then
   git add .
   echo " "
