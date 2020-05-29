@@ -1,10 +1,9 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: Valid pull request
+description: Check that pull request title is valid.
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  title-regex:
+    description: 'A regex pattern to check if a pull request title is valid.'
     required: true
-    default: 'World'
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: node12
+  main: dist/index.js

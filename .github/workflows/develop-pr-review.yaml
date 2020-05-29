@@ -13,8 +13,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Download npm dependencies
         run: yarn install
-      - name: Hello world action step
+      - name: Validate PR title and description
         uses: ./.github/actions/validate-pr
-        id: hello
         with:
-          who-to-greet: 'Mona the Octocat'
+          title-regex: '^(master|(feat|release|hotfix)\/[a-z0-9._-]+): [\d\D]+$'
