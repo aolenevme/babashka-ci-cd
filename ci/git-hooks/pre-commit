@@ -6,14 +6,15 @@ const exec = util.promisify(childProcessExec);
 
 (async () => {
     const localBranch = await exec("git rev-parse --abbrev-ref HEAD");
-    console.log(localBranch);
     const validBranchRegex = new RegExp("^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$", "u");
     const message = `Branch names in this project must adhere to this contract: ${validBranchRegex}.`;
 
-    if (validBranchRegex.test(localBranch)) {
+    if (validBranchRegex.test(localBranch.stdout.trim())) {
         console.log("\n");
+        process.exit(0);
     } else {
         console.log(message);
+        process.exit(1);
     }
 })();
 
