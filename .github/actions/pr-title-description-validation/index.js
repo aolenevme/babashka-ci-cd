@@ -3,11 +3,17 @@ const github = require('@actions/github');
 
 function action() {
     try {
-        const titleRegexInput = core.getInput('title-regex');
+        // const titleRegexInput = core.getInput('title-regex');
+        // if (!isTitleValid(titleRegexInput)) {
+        //     core.setFailed(
+        //         `The title of the pull request does not match regex pattern "${titleRegexInput}".`,
+        //     )
+        // }
 
-        if (!isTitleValid(titleRegexInput)) {
+        const refName = github.context.payload.pull_request.head.ref;
+        if (!isTitleStartedWithRefName(refName)) {
             core.setFailed(
-                `The title of the pull request does not match regex pattern "${titleRegexInput}".`,
+                `The title of the pull request has to start with ${refName}`,
             )
         }
 
@@ -23,18 +29,24 @@ function action() {
     }
 }
 
-function isTitleValid(titleRegexInput) {
-    const titleRegex = new RegExp(titleRegexInput);
+//
+// function isTitleValid(titleRegexInput) {
+//     const titleRegex = new RegExp(titleRegexInput);
+//     const title =
+//         github.context.payload &&
+//         github.context.payload.pull_request &&
+//         github.context.payload.pull_request.title;
+//
+//     return titleRegex.test(title)
+// }
+
+function isTitleStartedWithRefName(refName) {
     const title =
         github.context.payload &&
         github.context.payload.pull_request &&
         github.context.payload.pull_request.title;
 
-    return titleRegex.test(title)
-}
-
-function isStartedWithBranchName() {
-    console.log(github.context.payload.pull_request.head.ref);
+    return typeof title === "string" && typeof refName === "string" && title.startsWith(refName);
 }
 
 function isDescriptionNotEmpty() {
@@ -45,7 +57,5 @@ function isDescriptionNotEmpty() {
 
     return typeof pullRequestDescription === "string" && pullRequestDescription.length > 0;
 }
-
-isStartedWithBranchName();
 
 action();
