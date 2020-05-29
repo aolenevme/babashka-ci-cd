@@ -5,6 +5,8 @@ local_branch="$(git rev-parse --abbrev-ref HEAD)"
 valid_branch_regex="^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$"
 message="Branch names in this project must adhere to this contract: $valid_branch_regex."
 
+echo "$(pwd)/src/**/*.{clj,cljs,cljc,edn}"
+
 if [[ $local_branch =~ $valid_branch_regex ]]
 then
   echo " "
@@ -14,6 +16,8 @@ else
   echo " "
   exit 1
 fi
+
+echo "$(pwd)/src/**/*.{clj,cljs,cljc,edn}"
 
 if zprint-clj -i "$(pwd)/src/**/*.{clj,cljs,cljc,edn}" -o "$(pwd)"
 then
