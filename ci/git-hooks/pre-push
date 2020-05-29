@@ -1,16 +1,13 @@
-#!/bin/sh
-LC_ALL=C
+#!/usr/bin/env node
 
-local_branch="$(git rev-parse --abbrev-ref HEAD)"
-valid_branch_regex="^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$"
-message="Branch names in this project must adhere to this contract: $valid_branch_regex."
+(async () => {
+    const localBranch = await exec("git rev-parse --abbrev-ref HEAD");
+    const validBranchRegex = new RegExp("^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$", "u");
 
-if [[ $local_branch =~ $valid_branch_regex ]]
-then
-  echo " "
-  exit 0
-else
-  echo "$message"
-  echo " "
-  exit 1
-fi
+    if (!validBranchRegex.test(localBranch.stdout.trim())) {
+        const message = `Branch names in this project must adhere to this contract: ${validBranchRegex}.`;
+        console.log(message);
+
+        process.exit(1);
+    }
+})();
