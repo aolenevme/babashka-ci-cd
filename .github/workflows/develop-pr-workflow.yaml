@@ -1,4 +1,4 @@
-name: Develop PR workflow
+name: Workflow before merging into the develop branch
 on:
   pull_request:
     branches:
