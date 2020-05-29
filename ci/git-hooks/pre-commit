@@ -7,21 +7,19 @@ const exec = util.promisify(childProcessExec);
 async function validateBranchName() {
     const localBranch = await exec("git rev-parse --abbrev-ref HEAD");
     const validBranchRegex = new RegExp("^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$", "u");
-    const message = `Branch names in this project must adhere to this contract: ${validBranchRegex}.`;
 
-    if (validBranchRegex.test(localBranch.stdout.trim())) {
-        console.log("\n");
-    } else {
+    if (!validBranchRegex.test(localBranch.stdout.trim())) {
+        const message = `Branch names in this project must adhere to this contract: ${validBranchRegex}.`;
         console.log(message);
+
         process.exit(1);
     }
 }
 
 async function formatClojureScript() {
     try {
-        const res = await exec("zprint-clj -i ./src/**/*.cljs -o ./");
-
-        console.log(res.stdout);
+        await exec("zprint-clj -i ./src/**/*.cljs -o ./");
+        await exec("git add .");
     } catch {
         console.error("Failed to format the ClojureScript code");
         process.exit(1);
@@ -30,9 +28,8 @@ async function formatClojureScript() {
 
 async function lintJavaScript() {
     try {
-        const res = await exec("yarn lint:js");
-
-        console.log(res.stdout);
+        await exec("yarn lint:js");
+        await exec("git add .");
     } catch {
         console.error("Failed to lint the JavaScript code");
         process.exit(1);
