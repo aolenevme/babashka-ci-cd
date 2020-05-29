@@ -15,6 +15,8 @@ function action() {
                 `Pull request description is empty.`,
             )
         }
+
+        console.log("The PR`s title and description are valid!", "color: lightgreen;")
     } catch (error) {
         core.setFailed(error.message);
     }
