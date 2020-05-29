@@ -4,7 +4,7 @@ currentbranch=$(git branch | grep \* | cut -d ' ' -f2)
 current_commit_msg=$(cat $1)
 valid_commit_msg_regex="^(master|develop|((feat|release|hotfix)\/.{1,}):{1} .{1,})"
 
-git log $currentbranch --pretty=format:"%H" --not master > shafile.txt
+git log $currentbranch --pretty=format:"%H" --not master > shas.txt
 
 if ! [[ $current_commit_msg =~ $valid_commit_msg_regex ]]
   then
@@ -18,7 +18,7 @@ if ! [[ $current_commit_msg =~ $valid_commit_msg_regex ]]
     exit 1
 fi
 
-for i in $(cat ./shafile.txt);
+for i in $(cat ./shas.txt);
   do
     gitmessage=$(git log --format=%B -n 1 "$i" | grep '\S')
 
@@ -33,10 +33,10 @@ for i in $(cat ./shafile.txt);
         echo "  hotfix/description: "
         echo " "
         echo "The commit message with sha: '$i' failed "
-        rm shafile.txt
+        rm shas.txt
         exit 1
     fi
   done
 
-rm shafile.txt
+rm shas.txt
 exit 0
