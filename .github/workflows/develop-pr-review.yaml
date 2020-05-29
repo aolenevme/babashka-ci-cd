@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Hello world action step
-        uses: ./ # Uses an action in the root directory
+        uses: ./.github/actions/validate-pr
         id: hello
         with:
           who-to-greet: 'Mona the Octocat'
