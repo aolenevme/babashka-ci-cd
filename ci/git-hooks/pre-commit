@@ -15,6 +15,7 @@ else
   exit 1
 fi
 
+echo "$(pwd)/src"
 
 if zprint-clj -i "./**/*.{clj,cljs,cljc,edn}" -o ./
 then
