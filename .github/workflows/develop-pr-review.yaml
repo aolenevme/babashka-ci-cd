@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Download npm dependencies
+        run: yarn install
       - name: Hello world action step
         uses: ./.github/actions/validate-pr
         id: hello
