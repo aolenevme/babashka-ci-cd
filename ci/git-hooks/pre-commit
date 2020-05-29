@@ -11,7 +11,6 @@ async function validateBranchName() {
 
     if (validBranchRegex.test(localBranch.stdout.trim())) {
         console.log("\n");
-        process.exit(0);
     } else {
         console.log(message);
         process.exit(1);
