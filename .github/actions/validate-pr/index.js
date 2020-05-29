@@ -3,9 +3,10 @@ const github = require('@actions/github');
 
 function action() {
     try {
-        if (!isTitleValid()) {
+        const titleRegexInput = core.getInput('title-regex');
+        if (!isTitleValid(titleRegexInput)) {
             core.setFailed(
-                `Pull request title "${title}" does not match regex pattern "${titleRegex}".`,
+                `The title of the pull request does not match regex pattern "${titleRegexInput}".`,
             )
         }
 
@@ -19,8 +20,7 @@ function action() {
     }
 }
 
-function isTitleValid() {
-    const titleRegexInput = core.getInput('title-regex');
+function isTitleValid(titleRegexInput) {
     const titleRegex = new RegExp(titleRegexInput);
     const title =
         github.context.payload &&
