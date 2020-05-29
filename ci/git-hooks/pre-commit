@@ -19,14 +19,24 @@ else
 fi
 
 
-# Format the code
+# Format the Clojure code
 if zprint-clj -i "./**/*.{clj,cljs,cljc,edn}" -o ./
 then
   git add .
   echo " "
   exit 0
 else
-  echo "Failed to format the code"
+  echo "Failed to format the Clojure code"
+  echo " "
+  exit 1
+fi
+
+if yarn lint:js
+then
+  echo " "
+  exit 0
+else
+  echo "Failed to format the Javascript code"
   echo " "
   exit 1
 fi

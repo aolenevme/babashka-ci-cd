@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "hardcore",
+    "hardcore/fp",
+    "hardcore/node"
+  ]
+}
