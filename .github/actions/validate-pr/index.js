@@ -4,7 +4,7 @@ const github = require('@actions/github');
 try {
     const titleRegexInput = core.getInput('title-regex')
     const titleRegex = new RegExp(titleRegexInput)
-    console.log(github.context.payload.pull_request);
+    console.log(github.context.payload);
     const title =
         github.context.payload &&
         github.context.payload.pull_request &&
