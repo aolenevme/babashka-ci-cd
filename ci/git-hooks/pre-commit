@@ -15,7 +15,7 @@ else
   exit 1
 fi
 
-npm run zprint-clj -i "$(pwd)/src/**/*.cljs"
+echo "$(pwd)/src/**/*.cljs"
 
 if (zprint-clj -i "$(pwd)/src/**/*.cljs")
 then
