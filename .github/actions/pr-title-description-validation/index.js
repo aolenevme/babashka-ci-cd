@@ -3,12 +3,12 @@ const github = require('@actions/github');
 
 function action() {
     try {
-        // const titleRegexInput = core.getInput('title-regex');
-        // if (!isTitleValid(titleRegexInput)) {
-        //     core.setFailed(
-        //         `The title of the pull request does not match regex pattern "${titleRegexInput}".`,
-        //     )
-        // }
+        const titleRegexInput = core.getInput('title-regex');
+        if (!isTitleValid(titleRegexInput)) {
+            core.setFailed(
+                `The title of the pull request does not match regex pattern "${titleRegexInput}".`,
+            )
+        }
 
         const refName = github.context.payload.pull_request.head.ref;
         if (!isTitleStartedWithRefName(refName)) {
@@ -29,16 +29,16 @@ function action() {
     }
 }
 
-//
-// function isTitleValid(titleRegexInput) {
-//     const titleRegex = new RegExp(titleRegexInput);
-//     const title =
-//         github.context.payload &&
-//         github.context.payload.pull_request &&
-//         github.context.payload.pull_request.title;
-//
-//     return titleRegex.test(title)
-// }
+
+function isTitleValid(titleRegexInput) {
+    const titleRegex = new RegExp(titleRegexInput);
+    const title =
+        github.context.payload &&
+        github.context.payload.pull_request &&
+        github.context.payload.pull_request.title;
+
+    return titleRegex.test(title)
+}
 
 function isTitleStartedWithRefName(refName) {
     const title =
