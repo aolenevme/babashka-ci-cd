@@ -16,6 +16,9 @@ const exec = util.promisify(childProcessExec);
         console.log(message);
         process.exit(1);
     }
+
+    const res = await exec('zprint-clj -i');
+    console.log(res);
 })();
 
 //
