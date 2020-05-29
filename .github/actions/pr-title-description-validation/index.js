@@ -33,6 +33,10 @@ function isTitleValid(titleRegexInput) {
     return titleRegex.test(title)
 }
 
+function isStartedWithBranchName() {
+    console.log(github.context.payload.pull_request);
+}
+
 function isDescriptionNotEmpty() {
     const pullRequestDescription =
         github.context.payload &&
@@ -41,5 +45,7 @@ function isDescriptionNotEmpty() {
 
     return typeof pullRequestDescription === "string" && pullRequestDescription.length > 0;
 }
+
+isStartedWithBranchName();
 
 action();
