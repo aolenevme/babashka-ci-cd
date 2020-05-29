@@ -4,7 +4,6 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 function isTitleValid(titleRegexInput) {
-    // eslint-disable-next-line security/detect-non-literal-regexp
     const titleRegex = new RegExp(titleRegexInput, "u");
     const title
         = github.context.payload
