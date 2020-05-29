@@ -1,23 +1,42 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-try {
-    const titleRegexInput = core.getInput('title-regex')
-    const titleRegex = new RegExp(titleRegexInput)
+function action() {
+    try {
+        if (!isTitleValid()) {
+            core.setFailed(
+                `Pull request title "${title}" does not match regex pattern "${titleRegex}".`,
+            )
+        }
 
-    console.log(github.context.payload.pull_request.body);
+        if (!isDescriptionNotEmpty()) {
+            core.setFailed(
+                `Pull request description is empty.`,
+            )
+        }
+    } catch (error) {
+        core.setFailed(error.message);
+    }
+}
+
+function isTitleValid() {
+    const titleRegexInput = core.getInput('title-regex');
+    const titleRegex = new RegExp(titleRegexInput);
     const title =
         github.context.payload &&
         github.context.payload.pull_request &&
-        github.context.payload.pull_request.title
+        github.context.payload.pull_request.title;
 
-    const isValid = titleRegex.test(title)
-
-    if (!isValid) {
-        core.setFailed(
-            `Pull request title "${title}" does not match regex pattern "${titleRegex}".`,
-        )
-    }
-} catch (error) {
-    core.setFailed(error.message);
+    return titleRegex.test(title)
 }
+
+function isDescriptionNotEmpty() {
+    const pullRequestDescription =
+        github.context.payload &&
+        github.context.payload.pull_request &&
+        github.context.payload.pull_request.body;
+
+    return typeof pullRequestDescription === "string" && pullRequestDescription.length > 0;
+}
+
+action();
