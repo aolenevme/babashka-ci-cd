@@ -3,5 +3,11 @@
     "hardcore",
     "hardcore/fp",
     "hardcore/node"
-  ]
+  ],
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "eslint-comments/no-unused-disable": "off"
+  }
 }

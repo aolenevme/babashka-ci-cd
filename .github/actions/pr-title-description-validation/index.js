@@ -4,7 +4,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 
 function isTitleValid(titleRegexInput) {
-    const titleRegex = new RegExp(titleRegexInput);
+    const titleRegex = new RegExp(titleRegexInput, "u");
     const title
         = github.context.payload
         && github.context.payload.pull_request
