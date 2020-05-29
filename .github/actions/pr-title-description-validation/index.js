@@ -34,7 +34,7 @@ function isTitleValid(titleRegexInput) {
 }
 
 function isStartedWithBranchName() {
-    console.log(github.context.payload.pull_request);
+    console.log(github.context.payload.pull_request.head.ref);
 }
 
 function isDescriptionNotEmpty() {
