@@ -16,7 +16,7 @@ function action() {
             )
         }
 
-        console.log("%cThe PR`s title and description are valid!", "color: lightgreen; font-weight: bold;")
+        console.log("%cThe PR`s title and description are valid!", "color: lightgreen;")
     } catch (error) {
         core.setFailed(error.message);
     }
