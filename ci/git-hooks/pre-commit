@@ -1,32 +1,43 @@
-#!/bin/sh
-LC_ALL=C
+#!/usr/bin/env node
+const childProcessExec = require("child_process").exec;
+const util = require("util");
 
-# Check branch name
-local_branch="$(git rev-parse --abbrev-ref HEAD)"
+const exec = util.promisify(childProcessExec);
 
-valid_branch_regex="^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$"
+async function validateBranchName() {
+    const localBranch = await exec("git rev-parse --abbrev-ref HEAD");
+    const validBranchRegex = new RegExp("^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$", "u");
 
-message="Branch names in this project must adhere to this contract: $valid_branch_regex. Your commit will be rejected. You should rename your branch to a valid name and try again."
+    if (!validBranchRegex.test(localBranch.stdout.trim())) {
+        const message = `Branch names in this project must adhere to this contract: ${validBranchRegex}.`;
+        console.log(message);
 
-if [[ $local_branch =~ $valid_branch_regex ]]
-then
-  echo " "
-  exit 0
-else
-  echo "$message"
-  echo " "
-  exit 1
-fi
+        process.exit(1);
+    }
+}
 
+async function formatClojureScript() {
+    try {
+        await exec("zprint-clj -i ./src/**/*.cljs -o ./");
+        await exec("git add .");
+    } catch {
+        console.error("Failed to format the ClojureScript code");
+        process.exit(1);
+    }
+}
 
-# Format the code
-if zprint-clj -i "./**/*.{clj,cljs,cljc,edn}" -o ./
-then
-  git add .
-  echo " "
-  exit 0
-else
-  echo "Failed to format the code"
-  echo " "
-  exit 1
-fi
+async function lintJavaScript() {
+    try {
+        await exec("yarn lint:js");
+        await exec("git add .");
+    } catch {
+        console.error("Failed to lint the JavaScript code");
+        process.exit(1);
+    }
+}
+
+(async () => {
+    await validateBranchName();
+    await formatClojureScript();
+    await lintJavaScript();
+})();

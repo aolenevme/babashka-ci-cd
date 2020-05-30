@@ -1,0 +1,16 @@
+name: Release PR workflow
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  validate-pr-title-and-description:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Download npm dependencies
+        run: yarn install
+      - name: Validate PR title and description
+        uses: ./.github/actions/pr-title-description-validation
+        with:
+          title-regex: '^(master|((release|hotfix)\/[a-z0-9._-]+)): [\d\D]+$'
