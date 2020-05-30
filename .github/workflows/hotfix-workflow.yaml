@@ -1,11 +1,8 @@
-name: Workflow before merging into the develop branch
+name: Release PR workflow
 on:
   pull_request:
     branches:
-      - develop
-    types:
-      - opened
-      - synchronize
+      - 'hotfix/**'
 jobs:
   validate-pr-title-and-description:
     runs-on: ubuntu-latest
@@ -16,4 +13,4 @@ jobs:
       - name: Validate PR title and description
         uses: ./.github/actions/pr-title-description-validation
         with:
-          title-regex: '^(master|(feat|release|hotfix)\/[a-z0-9._-]+): [\d\D]+$'
+          title-regex: '^(master|(hotfix\/[a-z0-9._-]+)): [\d\D]+$'
