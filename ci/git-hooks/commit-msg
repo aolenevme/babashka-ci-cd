@@ -1,34 +1,44 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-currentbranch=$(git branch | grep \* | cut -d ' ' -f2)
-current_commit_msg=$(cat $1)
-valid_commit_msg_regex="^(master|develop|((feat|release|hotfix)\/.{1,}):{1} .{1,})"
+const fs = require("fs").promises;
+const childProcessExec = require("child_process").exec;
+const util = require("util");
 
-git log $currentbranch --pretty=format:"%H" --not master > shas.txt
+const exec = util.promisify(childProcessExec);
 
-if ! [[ $current_commit_msg =~ $valid_commit_msg_regex ]]
-  then
-    echo "Your commit message must begin with:"
-    echo "$(git rev-parse --abbrev-ref HEAD): <description>"
-    echo " "
-    exit 1
-fi
+const validCommitMsgRegex = /^(master|develop|((feat|release|hotfix)\/.+): .+)/;
 
-for i in $(cat ./shas.txt);
-  do
-    gitmessage=$(git log --format=%B -n 1 "$i" | grep '\S')
+function getCurrentBranchName() {
+    return exec("git rev-parse --abbrev-ref HEAD");
+}
 
-    if ! [[ $gitmessage =~ $valid_commit_msg_regex ]]
-      then
-        echo $gitmessage
-        echo "Your commit message must begin with:"
-        echo "$(git rev-parse --abbrev-ref HEAD): <description>"
-        echo " "
-        echo "The commit message with sha: '$i' failed "
-        rm shas.txt
-        exit 1
-    fi
-  done
+async function printExplanation() {
+    const currentBranchName = await getCurrentBranchName();
 
-rm shas.txt
-exit 0
+    console.log("Your commit message must begin with:\n");
+    console.log(`${currentBranchName}: <description>\n`);
+    console.log("\n");
+}
+
+async function checkCurrentCommitMsg() {
+    const currentCommitMsg = await exec("cat $1");
+
+    if (!validCommitMsgRegex.test(currentCommitMsg)) {
+        await printExplanation();
+        process.exit(1);
+    }
+}
+
+async function checkCommitMsgHistory() {
+    const currentBranchName = await getCurrentBranchName();
+
+    await exec(`git log ${currentBranchName} --pretty=format:"%H" --not master > shas.txt`);
+
+    const shas = await fs.readFile("./shas.txt");
+    console.log(shas);
+}
+
+(async () => {
+    await checkCurrentCommitMsg();
+    // await checkCommitMsgHistory();
+})();
