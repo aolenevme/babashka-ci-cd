@@ -1,37 +1,37 @@
 #!/bin/bash
 
-commit_message_check (){
-      # Get the current branch and apply it to a variable
-      currentbranch=`git branch | grep \* | cut -d ' ' -f2`
+currentbranch=$(git branch | grep \* | cut -d ' ' -f2)
+current_commit_msg=$(cat $1)
+valid_commit_msg_regex="^(master|develop|((feat|release|hotfix)\/.{1,}):{1} .{1,})"
 
-      # Gets the commits for the current branch and outputs to file
-      git log $currentbranch --pretty=format:"%H" --not master > shafile.txt
+git log $currentbranch --pretty=format:"%H" --not master > shas.txt
 
-      # loops through the file an gets the message
-      for i in `cat ./shafile.txt`;
-      do
-      # gets the git commit message based on the sha
-      gitmessage=`git log --format=%B -n 1 "$i"`
+if ! [[ $current_commit_msg =~ $valid_commit_msg_regex ]]
+  then
+    echo "Your commit message must begin with:"
+    echo "$(git rev-parse --abbrev-ref HEAD): <description>"
+    echo " "
+    exit 1
+fi
 
-      messagecheck=`echo $gitmessage | grep "^[feat/|develop/|release/|hotfix/|master/].*: "`
-      if [ -z "$messagecheck" ]
+for i in $(cat ./shas.txt);
+  do
+    gitmessage=$(git log --format=%B -n 1 "$i" | grep '\S')
+
+    if ! [[ $gitmessage =~ $valid_commit_msg_regex ]]
       then
-            echo "Your commit message must begin with one of the following:"
-            echo "  feat/description: "
-            echo "  develop/description: "
-            echo "  release/description: "
-            echo "  hotfix/description: "
-            echo "  master/description: "
-            echo " "
-            echo "The commit message with sha: '$i' failed "
-            rm shafile.txt
-            exit 1
-      fi
-      done
+        echo $gitmessage
+        echo "Your commit message must begin with:"
+        echo "$(git rev-parse --abbrev-ref HEAD): <description>"
+        echo " "
+        echo "The commit message with sha: '$i' failed "
+        rm shas.txt
+        exit 1
+    fi
+  done
 
-      rm shafile.txt
-      exit 0
-}
+rm shas.txt
+exit 0
 
-# Calling the function
-commit_message_check
+rm shas.txt
+exit 0
