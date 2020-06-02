@@ -21,6 +21,4 @@
                 (print-error-msg)
                 (System/exit 1)))
 
-(println 1)
-
 (pre-push)
