@@ -29,6 +29,4 @@
                 (print-error-msg)
                 (System/exit 1)))
 
-(println (get-current-commit-msg))
-
 (commit-msg)
