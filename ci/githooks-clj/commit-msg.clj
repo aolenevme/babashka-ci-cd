@@ -22,7 +22,9 @@
       (println "Your commit message must follow this regex:")
       (println (create-commit-msg-regex)))
 
-(defn commit-sg []
+(defn commit-msg []
       (when-not (valid-commit-msg?)
                 (print-error-msg)
                 (System/exit 1)))
+
+(commit-msg)
