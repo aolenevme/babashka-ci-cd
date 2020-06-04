@@ -9,7 +9,7 @@
 
 (defn valid-title? [] (re-matches title-regex title))
 
-(defn title-starts-with-ref-name? [] (str/starts-with? title ref-name))
+(defn title-starts-with-ref-name? [] (println title ref-name))
 
 (valid-title?)
 (title-starts-with-ref-name?)
