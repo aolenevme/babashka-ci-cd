@@ -4,4 +4,4 @@
          '[clojure.string :refer [trim]])
 
 ;(println (first *command-line-args*))
-(println (second *command-line-args*))
+(println *command-line-args*)
