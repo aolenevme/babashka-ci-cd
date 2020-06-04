@@ -5,4 +5,4 @@
 
 (println (first *command-line-args*))
 
-(sh "echo" "1")
+(sh "cat" "/home/runner/work/_temp/_github_workflow/event.json")
