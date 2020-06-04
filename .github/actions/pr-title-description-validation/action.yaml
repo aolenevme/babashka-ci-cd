@@ -5,5 +5,10 @@ inputs:
     description: 'A regex pattern to check if a pull request title is valid.'
     required: true
 runs:
-  using: node12
-  main: index.js
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.title-regex }}
+    - ${{ inputs.ref-name }}
+    - ${{ inputs.title }}
+    - ${{ inputs.description }}

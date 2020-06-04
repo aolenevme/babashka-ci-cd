@@ -1,18 +1,8 @@
 {
   "name": "purechat",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "private": true,
-  "dependencies": {
-    "@actions/core": "^1.2.4",
-    "@actions/github": "^2.2.0",
-    "zprint-clj": "^0.8.0"
-  },
   "devDependencies": {
-    "eslint": "^7.1.0",
-    "eslint-config-hardcore": "^11.2.0",
     "shadow-cljs": "2.9.8"
-  },
-  "scripts": {
-    "lint:js": "eslint --fix ./.github"
   }
 }

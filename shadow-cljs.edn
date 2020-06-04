@@ -4,7 +4,11 @@
     :server
       {:main server.server/init,
        :output-to "built-server/server.js",
-       :target :node-script}},
+       :target :node-script}
+    :prepush
+            {:main githooks.prepush/init
+             :output-to "ci/githooks-clj/prepush.js"
+             :target :node-script}},
  :dependencies [],
  :dev-http {8080 "public"},
  :source-paths ["src"]}
