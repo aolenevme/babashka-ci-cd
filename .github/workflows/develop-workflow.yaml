@@ -10,6 +10,8 @@ jobs:
       - uses: actions/checkout@v1
       - name: Download npm dependencies
         run: yarn install
+      - name: Test
+        run: echo ${{github.event}}
       - name: Validate PR title and description
         uses: ./.github/actions/pr-title-description-validation
         with:

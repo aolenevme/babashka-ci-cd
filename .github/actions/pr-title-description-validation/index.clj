@@ -4,5 +4,3 @@
          '[clojure.string :refer [trim]])
 
 (println (first *command-line-args*))
-
-(sh "cat" "/home/runner/work/_temp/_github_workflow/event.json")
