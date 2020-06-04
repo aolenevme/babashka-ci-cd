@@ -1,5 +1,9 @@
 #!/usr/bin/env bb
 
-(require '[clojure.string :as str])
+(require '[clojure.java.shell :refer [sh]]
+         '[clojure.string :refer [trim]])
 
-(println "check tag incrementation")
+(-> (sh "git checkout master")
+    :out
+    (trim)
+    (println))
