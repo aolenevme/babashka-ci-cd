@@ -10,3 +10,4 @@ runs:
   args:
     - ${{ inputs.title-regex }}
     - ${{ inputs.title }}
+    - ${{ inputs.ref-name }}
