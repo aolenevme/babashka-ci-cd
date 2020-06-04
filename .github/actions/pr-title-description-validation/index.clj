@@ -12,7 +12,7 @@
 
 ;(defn title-starts-with-ref-name? [] (s/starts-with? title ref-name))
 
-(println (s/starts-with? title ref-name))
+(println (str/starts-with? title ref-name))
 
 (valid-title?)
 ;(title-starts-with-ref-name?)
