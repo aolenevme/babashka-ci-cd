@@ -3,10 +3,10 @@
 (require '[clojure.java.shell :refer [sh]]
          '[clojure.string :refer [trim]])
 
-(defn validate-branch-name [] (load-file "ci/githooks-clj/pre-push.clj"))
+(defn validate-branch-name [] (load-file ".github/hooks/pre-push.clj"))
 
 (defn lint-clojure-code []
-      (let [lint-res (sh "clj-kondo" "--lint" "src" "ci")
+      (let [lint-res (sh "clj-kondo" "--lint" "src" ".github")
             exit (:exit lint-res)
             out (:out lint-res)]
            (println out)
