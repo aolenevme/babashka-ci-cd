@@ -14,4 +14,4 @@ jobs:
         uses: ./.github/actions/pr-title-description-validation
         with:
           title-regex: '^(master|develop|((feat|release|hotfix)\/[a-z0-9._-]+)): [\d\D]+$'
-          github: ${{ github }}
+          github: ${{ github.event }}
