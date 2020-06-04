@@ -15,3 +15,4 @@ jobs:
         with:
           title-regex: '^(master|develop|((feat|release|hotfix)\/[a-z0-9._-]+)): [\d\D]+$'
           title: ${{github.event.pull_request.title}}
+          ref-name: ${{github.event.pull_request.head.ref}}
