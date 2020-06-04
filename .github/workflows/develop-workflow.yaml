@@ -10,10 +10,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: Download npm dependencies
         run: yarn install
-      - name: Test
-        run: echo ${{github.event.pull_request.title}}
       - name: Validate PR title and description
         uses: ./.github/actions/pr-title-description-validation
         with:
           title-regex: '^(master|develop|((feat|release|hotfix)\/[a-z0-9._-]+)): [\d\D]+$'
           title: ${{github.event.pull_request.title}}
+          ref-name: ${{github.event.pull_request.head.ref}}
