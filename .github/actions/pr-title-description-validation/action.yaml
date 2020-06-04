@@ -9,4 +9,4 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.title-regex }}
-    - ${{ github }}
+    - ${{ inputs.github }}
