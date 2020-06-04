@@ -17,3 +17,6 @@ jobs:
           description: ${{github.event.pull_request.body}}
       - name: Check tag incrementation
         uses: ./.github/actions/check-tag-incrementation
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
