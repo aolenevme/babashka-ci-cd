@@ -1,7 +1,6 @@
 #!/usr/bin/env bb
 
-(require '[clojure.java.shell :refer [sh]])
+(require '[clojure.java.shell :refer [sh]]
+         '[clojure.string :refer [trim]])
 
-(-> (sh "echo \"Hello $1\"")
-    :out
-    (trim))
+(println (first *command-line-args*))
