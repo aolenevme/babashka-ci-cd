@@ -7,7 +7,7 @@ jobs:
   validate-pr-title-and-description:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Validate PR title and description
         uses: ./.github/actions/pr-title-description-validation
         with:
@@ -15,3 +15,12 @@ jobs:
           ref-name: ${{github.event.pull_request.head.ref}}
           title: ${{github.event.pull_request.title}}
           description: ${{github.event.pull_request.body}}
+
+  check-tag-incrementation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+          with:
+            ref: master
+      - names: Get last tag in master
+        run: git describe --tags --abbrev=0
