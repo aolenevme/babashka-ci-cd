@@ -11,7 +11,7 @@ jobs:
       - name: Download npm dependencies
         run: yarn install
       - name: Test
-        run: echo ${{github.event}}
+        run: echo ${{github.event.pull_request.title}}
       - name: Validate PR title and description
         uses: ./.github/actions/pr-title-description-validation
         with:
