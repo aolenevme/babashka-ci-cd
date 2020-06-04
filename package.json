@@ -2,10 +2,6 @@
   "name": "purechat",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
-    "@actions/core": "^1.2.4",
-    "@actions/github": "^2.2.0"
-  },
   "devDependencies": {
     "shadow-cljs": "2.9.8"
   }

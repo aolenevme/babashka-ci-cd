@@ -12,3 +12,6 @@ jobs:
         uses: ./.github/actions/pr-title-description-validation
         with:
           title-regex: '^(develop|(release\/[a-z0-9._-]+)): [\d\D]+$'
+          ref-name: ${{github.event.pull_request.head.ref}}
+          title: ${{github.event.pull_request.title}}
+          description: ${{github.event.pull_request.body}}

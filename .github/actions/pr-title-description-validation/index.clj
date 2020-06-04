@@ -24,6 +24,6 @@
           (do (println "The title of the pull request has to start with " ref-name)
               (System/exit 1)))
 
-(when (is-description-not-empty?)
+(when-not (is-description-not-empty?)
           (do (println "Pull request description is empty.")
               (System/exit 1)))
