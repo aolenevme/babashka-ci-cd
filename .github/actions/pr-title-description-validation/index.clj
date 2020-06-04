@@ -4,13 +4,13 @@
          '[clojure.string :refer [trim]]
          '[clojure.string :as s])
 
-(defn get-title-regex [] (re-pattern (first *command-line-args*)))
-(defn get-title [] (second *command-line-args*))
-(defn get-ref-name [] (second (next *command-line-args*)))
+(def title-regex (re-pattern (first *command-line-args*)))
+(def title (second *command-line-args*))
+(def ref-name (second (next *command-line-args*)))
 
-(defn valid-title? [] (re-matches (get-title-regex) (get-title)))
+(defn valid-title? [] (re-matches title-regex title))
 
-(defn title-starts-with-ref-name? [] (s/starts-with? (get-title) (get-ref-name)))
+(defn title-starts-with-ref-name? [] (s/starts-with? title ref-name))
 
 (valid-title?)
 (title-starts-with-ref-name?)
