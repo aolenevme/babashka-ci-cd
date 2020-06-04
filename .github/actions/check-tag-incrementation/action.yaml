@@ -1,0 +1,5 @@
+name: Check tag incrementation
+description: Check that the tag is incremented
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
