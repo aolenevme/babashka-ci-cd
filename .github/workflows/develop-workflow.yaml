@@ -23,4 +23,4 @@ jobs:
         with:
           ref: master
       - name: Get last tag in master
-        run: git describe --tags --abbrev=0
+        run: git diff origin/master HEAD
