@@ -5,4 +5,4 @@
 
 (println (first *command-line-args*))
 
-(println (second *command-line-args*))
+(sh "echo" "$GITHUB_EVENT_PATH")
