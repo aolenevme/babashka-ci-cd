@@ -9,5 +9,6 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.title-regex }}
-    - ${{ inputs.title }}
     - ${{ inputs.ref-name }}
+    - ${{ inputs.title }}
+    - ${{ inputs.description }}
