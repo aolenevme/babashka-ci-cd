@@ -16,6 +16,15 @@
       (let [description-length (count description)]
            (> description-length 0)))
 
-(valid-title?)
-(title-starts-with-ref-name?)
-(is-description-not-empty?)
+(defn action []
+      ((when-not (valid-title?)
+                 ((println "The title of the pull request does not match regex pattern: " title-regex)
+                  (System/exit 1)))
+       (when-not (title-starts-with-ref-name?)
+                 ((println "The title of the pull request has to start with " ref-name)
+                  (System/exit 1)))
+       (when-not (is-description-not-empty?)
+                 ((println "Pull request description is empty.")
+                  (System/exit 1)))))
+
+(action)
