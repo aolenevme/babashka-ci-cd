@@ -22,11 +22,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Fetch both master and current branch
         run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-      - name: Extract package.json diff
-        shell: bash
-        run: echo "::set-env name=PACKAGE_JSON_DIFF::$(git diff origin/master:package.json HEAD:package.json)"
+      - name: Get package.json diff
+        id: get_package_json_diff
+        run: echo "::set-output name=PACKAGE_JSON_DIFF::$(git diff origin/master:package.json HEAD:package.json)"
       - name: Check incrementation
         uses: ./.github/actions/check-tag-incrementation
         with:
-          package-json-diff: ${{PACKAGE_JSON_DIFF}}
+          package-json-diff: ${{steps.get_package_json_diff.outputs.PACKAGE_JSON_DIFF}}
 
