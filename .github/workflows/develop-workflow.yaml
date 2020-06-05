@@ -20,6 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-          git diff origin/master:package.json HEAD:package.json
+        run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+      - name: Extract package.json diff
+        shell: bash
+        run: echo "::set-env name=PACKAGE_JSON_DIFF::$(git diff origin/master:package.json HEAD:package.json)"
+      - name: Check incrementation
+        uses: ./.github/actions/check-tag-incrementation
+        with:
+          package-json-diff: ${{PACKAGE_JSON_DIFF}}
+
