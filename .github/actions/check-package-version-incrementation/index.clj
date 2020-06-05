@@ -3,6 +3,8 @@
 (require '[clojure.java.shell :refer [sh]]
          '[clojure.string :as s])
 
+(println 1)
+
 (def package-json-diff (first *command-line-args*))
 (def version-substr-length 12)
 
