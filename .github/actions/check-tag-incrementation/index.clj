@@ -3,7 +3,7 @@
 (require '[clojure.java.shell :refer [sh]]
          '[clojure.string :refer [trim]])
 
-(def package-json-diff (first *command-line-args*))
+(def package-json-diff *command-line-args*)
 
 (println package-json-diff)
 
