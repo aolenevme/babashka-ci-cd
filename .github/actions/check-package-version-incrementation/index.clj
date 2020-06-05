@@ -6,10 +6,8 @@
 (def package-json-diff (first *command-line-args*))
 (def version-substr-length 12)
 
-(println (s/index-of package-json-diff "-  \"version\": \""))
-
-(def old-version-substr-begin (+ (s/index-of package-json-diff "-  version: ") version-substr-length))
-(def new-version-substr-begin (+ (s/index-of package-json-diff "+  version: ") version-substr-length))
+(def old-version-substr-begin (+ (s/index-of package-json-diff "-  \"version\": \"") version-substr-length))
+(def new-version-substr-begin (+ (s/index-of package-json-diff "+  \"version\": \"") version-substr-length))
 
 (def old-version-comma-end (s/index-of package-json-diff "," old-version-substr-begin))
 (def new-version-comma-end (s/index-of package-json-diff "," new-version-substr-begin))
