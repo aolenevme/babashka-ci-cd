@@ -25,7 +25,7 @@ jobs:
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
           echo "::set-output name=PACKAGE_JSON_DIFF::$(git diff origin/master:package.json HEAD:package.json | tr -d '\n')"
-      - name: Check incrementation
+      - name: Check package.json version incrementation
         uses: ./.github/actions/check-package-version-incrementation
         with:
           package-json-diff: ${{steps.get_package_json_diff.outputs.PACKAGE_JSON_DIFF}}
