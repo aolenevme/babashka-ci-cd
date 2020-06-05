@@ -26,7 +26,7 @@ jobs:
           git diff origin/master:package.json HEAD:package.json > git.diff
       - name: Get package.json diff
         id: get_package_json_diff
-        run: echo "::set-output name=PACKAGE_JSON_DIFF::$(cat git.diff)"
+        run: echo "::set-output name=PACKAGE_JSON_DIFF::$(cat git.diff | tr -d '\n')"
       - name: Check incrementation
         uses: ./.github/actions/check-tag-incrementation
         with:
