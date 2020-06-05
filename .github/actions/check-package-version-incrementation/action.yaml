@@ -1,5 +1,5 @@
-name: Check tag incrementation
-description: Check that the tag is incremented
+name: Check package.json version incrementation
+description: Check package.json version incrementation
 inputs:
   package-json-diff:
     description: 'A diff between package.json`s on master branch and current branch'

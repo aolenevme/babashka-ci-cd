@@ -16,7 +16,7 @@ jobs:
           title: ${{github.event.pull_request.title}}
           description: ${{github.event.pull_request.body}}
 
-  check-tag-incrementation:
+  check-package-version-incrementation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
           echo "::set-output name=PACKAGE_JSON_DIFF::$(git diff origin/master:package.json HEAD:package.json | tr -d '\n')"
       - name: Check incrementation
-        uses: ./.github/actions/check-tag-incrementation
+        uses: ./.github/actions/check-package-version-incrementation
         with:
           package-json-diff: ${{steps.get_package_json_diff.outputs.PACKAGE_JSON_DIFF}}
 
