@@ -1,7 +1,6 @@
 #!/usr/bin/env bb
 
-(require '[clojure.java.shell :refer [sh]]
-         '[clojure.string :as str])
+(require '[clojure.string :as str])
 
 (def title-regex (re-pattern (first *command-line-args*)))
 (def ref-name (second *command-line-args*))
