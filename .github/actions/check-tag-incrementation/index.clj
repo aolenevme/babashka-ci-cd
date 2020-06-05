@@ -7,7 +7,7 @@
 
 (println package-json-diff)
 
-;(-> (sh "git checkout master")
-;    :out
-;    (trim)
-;    (println))f
+(-> (sh "git diff origin/master:package.json HEAD:package.json")
+    :out
+    (trim)
+    (println))
