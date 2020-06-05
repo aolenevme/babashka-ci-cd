@@ -1,5 +1,11 @@
 name: Check tag incrementation
 description: Check that the tag is incremented
+inputs:
+  package-json-diff:
+    description: 'A diff between package.json`s on master branch and current branch'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.package-json-diff }}
