@@ -4,6 +4,15 @@ inputs:
   title-regex:
     description: 'A regex pattern to check if a pull request title is valid.'
     required: true
+  ref-name:
+    description: 'Ref name.'
+    required: true
+  title:
+    description: 'PR title.'
+    required: true
+  description:
+    description: 'PR description.'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
