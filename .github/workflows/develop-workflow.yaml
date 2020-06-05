@@ -20,13 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Print diff into file
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-          git diff origin/master:package.json HEAD:package.json > git.diff
+      - name: Fetch both master and current branch
+        run: git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
       - name: Get package.json diff
         id: get_package_json_diff
-        run: echo "::set-output name=PACKAGE_JSON_DIFF::$(cat git.diff | tr -d '\n')"
+        run: echo "::set-output name=PACKAGE_JSON_DIFF::$(git diff origin/master:package.json HEAD:package.json | tr -d '\n')"
       - name: Check incrementation
         uses: ./.github/actions/check-tag-incrementation
         with:
