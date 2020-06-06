@@ -1,6 +1,5 @@
 (ns server.server)
 
 
-(defn init
-  []
+(defn init []
   (println "Hello, server!"))

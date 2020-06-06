@@ -33,7 +33,12 @@
                        (or (= git-add-exit 2) (= git-add-exit 0)))
                      (System/exit 1))))
 
-(sh "git" "add" "src")
+(sh "clj"
+    "-Sdeps" "'{:deps {mvxcvi/cljstyle {:git/url \\\"https://github.com/greglook/cljstyle.git\\\", :sha \\\"c8bc620aeadd022136bb333970c03edf41627417\\\"}}}'"
+    "-m"
+    "cljstyle.main"
+    "fix"
+    "src")
 (validate-branch-name)
 ;(format-code)
 (lint-code)
