@@ -14,7 +14,8 @@
 
 (defn format-code []
       (let [
-            ;format-res (sh "clj -Sdeps '{:deps {mvxcvi/cljstyle {:git/url \"https://github.com/greglook/cljstyle.git\", :sha \"c8bc620aeadd022136bb333970c03edf41627417\"}}}' -m cljstyle.main fix ../../src \n")
+            pwd (-> (sh "pwd") :out (trim))
+            ;format-res (sh (format "clj -Sdeps '{:deps {mvxcvi/cljstyle {:git/url \"https://github.com/greglook/cljstyle.git\", :sha \"c8bc620aeadd022136bb333970c03edf41627417\"}}}' -m cljstyle.main fix %s" (str pwd "/src")))
             format-res (sh "pwd")
             git-add-res (sh "pwd")
             ;git-add-res (sh "git add .")
