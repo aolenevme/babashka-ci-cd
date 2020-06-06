@@ -6,14 +6,12 @@
 (defn validate-branch-name [] (load-file ".github/hooks/pre-push.clj"))
 
 (defn format-code []
-      (let [
-            format-res (sh "clj"
+      (let [format-res (sh "clj"
                            "-Sdeps"
                            "{:deps {mvxcvi/cljstyle {:git/url \"https://github.com/greglook/cljstyle.git\", :sha \"c8bc620aeadd022136bb333970c03edf41627417\"}}}"
                            "-m"
                            "cljstyle.main"
-                           "fix"
-                           "src")
+                           "fix")
             git-add-res (sh "git" "add" ".")
             format-exit (:exit format-res)
             git-add-exit (:exit git-add-res)
@@ -32,6 +30,7 @@
            (println out)
            (when-not (or (= exit 2) (= exit 0)) (System/exit 1))))
 
-(validate-branch-name)
-(format-code)
-(lint-code)
+(try (do (validate-branch-name)
+         (format-code)
+         (lint-code))
+     (catch Exception e (println e)))
