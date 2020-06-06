@@ -7,7 +7,13 @@
 
 (defn format-code []
       (let [
-            format-res (sh "cljstyle" "fix" "src")
+            format-res (sh "clj"
+                           "-Sdeps"
+                           "{:deps {mvxcvi/cljstyle {:git/url \"https://github.com/greglook/cljstyle.git\", :sha \"c8bc620aeadd022136bb333970c03edf41627417\"}}}"
+                           "-m"
+                           "cljstyle.main"
+                           "fix"
+                           "src")
             git-add-res (sh "git" "add" ".")
             format-exit (:exit format-res)
             git-add-exit (:exit git-add-res)
