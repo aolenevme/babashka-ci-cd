@@ -14,22 +14,26 @@
 
 (defn format-code []
       (let [
-            pwd (-> (sh "pwd") :out (trim))
-            ;format-res (sh (format "clj -Sdeps '{:deps {mvxcvi/cljstyle {:git/url \"https://github.com/greglook/cljstyle.git\", :sha \"c8bc620aeadd022136bb333970c03edf41627417\"}}}' -m cljstyle.main fix %s" (str pwd "/src")))
-            format-res (sh "pwd")
-            git-add-res (sh "pwd")
-            ;git-add-res (sh "git add .")
+            format-res (sh "clj"
+                           "-Sdeps" "'{:deps {mvxcvi/cljstyle {:git/url \\\"https://github.com/greglook/cljstyle.git\\\", :sha \\\"c8bc620aeadd022136bb333970c03edf41627417\\\"}}}'"
+                           "-m"
+                           "cljstyle.main"
+                           "fix"
+                           "src")
+            git-add-res (sh "git" "add" "src")
             format-exit (:exit format-res)
             git-add-exit (:exit git-add-res)
             format-out (:out format-res)
             git-add-out (:out format-res)]
            (println format-out)
+           (println (sh "git" "add" "src"))
            (println git-add-out)
            (when-not (and
                        (or (= format-exit 2) (= format-exit 0))
                        (or (= git-add-exit 2) (= git-add-exit 0)))
                      (System/exit 1))))
 
+(sh "git" "add" "src")
 (validate-branch-name)
-(format-code)
+;(format-code)
 (lint-code)
