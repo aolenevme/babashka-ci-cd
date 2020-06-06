@@ -2,6 +2,5 @@
 
 
 (defn init
-
-      []
+  []
   (println "Hello, server!"))
