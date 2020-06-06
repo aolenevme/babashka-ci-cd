@@ -19,10 +19,8 @@
             format-exit (:exit format-res)
             git-add-exit (:exit git-add-res)
             format-out (:out format-res)
-            git-add-out (:out format-res)
-            ]
-           (println format-res git-add-res)
-           ;(println git-add-out git-add-exit)
+            git-add-out (:out format-res)]
+           (println format-out git-add-out)
            (when-not (and
                        (or (= format-exit 2) (= format-exit 0))
                        (or (= git-add-exit 2) (= git-add-exit 0)))
