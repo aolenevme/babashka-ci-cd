@@ -11,7 +11,8 @@
                            "{:deps {mvxcvi/cljstyle {:git/url \"https://github.com/greglook/cljstyle.git\", :sha \"c8bc620aeadd022136bb333970c03edf41627417\"}}}"
                            "-m"
                            "cljstyle.main"
-                           "fix")
+                           "fix"
+                           "src")
             git-add-res (sh "git" "add" ".")
             format-exit (:exit format-res)
             git-add-exit (:exit git-add-res)
@@ -33,4 +34,6 @@
 (try (do (validate-branch-name)
          (format-code)
          (lint-code))
-     (catch Exception e (println e)))
+     (catch Exception e
+       (println e)
+       (System/exit 1)))
