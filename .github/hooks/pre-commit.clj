@@ -14,31 +14,21 @@
 
 (defn format-code []
       (let [
-            format-res (sh "clj"
-                           "-Sdeps" "'{:deps {mvxcvi/cljstyle {:git/url \\\"https://github.com/greglook/cljstyle.git\\\", :sha \\\"c8bc620aeadd022136bb333970c03edf41627417\\\"}}}'"
-                           "-m"
-                           "cljstyle.main"
-                           "fix"
-                           "src")
-            git-add-res (sh "git" "add" "src")
+            format-res (sh "cljstyle" "fix" "src")
+            ;git-add-res (sh "git" "add" ".")
             format-exit (:exit format-res)
-            git-add-exit (:exit git-add-res)
+            ;git-add-exit (:exit git-add-res)
             format-out (:out format-res)
-            git-add-out (:out format-res)]
-           (println format-out)
-           (println (sh "git" "add" "src"))
-           (println git-add-out)
+            ;git-add-out (:out format-res)
+            ]
+           (println format-res)
+           ;(println git-add-out git-add-exit)
            (when-not (and
                        (or (= format-exit 2) (= format-exit 0))
-                       (or (= git-add-exit 2) (= git-add-exit 0)))
+                       ;(or (= git-add-exit 2) (= git-add-exit 0))
+                       )
                      (System/exit 1))))
 
-(sh "clj"
-    "-Sdeps" "'{:deps {mvxcvi/cljstyle {:git/url \\\"https://github.com/greglook/cljstyle.git\\\", :sha \\\"c8bc620aeadd022136bb333970c03edf41627417\\\"}}}'"
-    "-m"
-    "cljstyle.main"
-    "fix"
-    "src")
 (validate-branch-name)
-;(format-code)
+(format-code)
 (lint-code)
