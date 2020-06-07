@@ -33,6 +33,6 @@
              is-version-increased? (not= (count version) 0)]
             (-> (sh "git" "tag" "-a" (str "v" version) "-m" version)
                 :out
-                (s/trim)))
+                (println (s/trim))))
   (catch Exception _
     (System/exit 1)))
