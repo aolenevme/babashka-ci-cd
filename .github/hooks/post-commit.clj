@@ -20,7 +20,7 @@
 
 (def version-substr-length 15)
 
-(defn is-version-incremented? []
+(defn get-version []
       (try
         (let [new-version-substr-begin (+ (s/index-of (get-package-json-diff) "+  \"version\": \"") version-substr-length)
               new-version-comma-end (s/index-of (get-package-json-diff) "\"," new-version-substr-begin)
@@ -28,12 +28,11 @@
              new-version)
         (catch Exception _ "")))
 
-(println (is-version-incremented?))
 
-;(try
-;  (when-let [version (get-version)
-;             is-version-increased? (not= (count version) 0)]
-;            (sh "git" "tag" "-a" (str "v" version) "-m" version))
-;  (catch Exception e
-;    (println e)
-;    (System/exit 1)))
+(try
+  (when-let [version (get-version)
+             is-version-increased? (not= (count version) 0)]
+            (sh "git" "tag" "-a" (str "v" version) "-m" version))
+  (catch Exception e
+    (println e)
+    (System/exit 1)))
