@@ -18,7 +18,7 @@
           :out
           (s/trim)))
 
-(def version-substr-length 12)
+(def version-substr-length 14)
 
 (defn is-version-incremented? []
       (try
