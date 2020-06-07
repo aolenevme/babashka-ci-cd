@@ -31,9 +31,9 @@
 (try
   (when-let [version (get-version)
              is-version-increased? (not= (count version) 0)]
-            (-> (sh "git" "tag" "-a" (str "v" version) "-m" version)
+            (do (-> (sh "git" "tag" "-a" (str "v" version) "-m" version)
                 :out
                 (s/trim))
-            (println version is-version-increased?))
+            (println version is-version-increased?)))
   (catch Exception _
     (System/exit 1)))
