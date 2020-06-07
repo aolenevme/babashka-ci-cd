@@ -34,5 +34,6 @@
             (-> (sh "git" "tag" "-a" (str "v" version) "-m" version)
                 :out
                 (println (s/trim))))
-  (catch Exception _
+  (catch Exception e
+    (println e)
     (System/exit 1)))
