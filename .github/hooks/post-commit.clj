@@ -28,7 +28,6 @@
              new-version)
         (catch Exception _ "")))
 
-
 (try
   (when-let [version (get-version)
              is-version-increased? (not= (count version) 0)]
