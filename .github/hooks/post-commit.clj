@@ -18,12 +18,12 @@
           :out
           (s/trim)))
 
-(def version-substr-length 14)
+(def version-substr-length 15)
 
 (defn is-version-incremented? []
       (try
         (let [new-version-substr-begin (+ (s/index-of (get-package-json-diff) "+  \"version\": \"") version-substr-length)
-              new-version-comma-end (s/index-of (get-package-json-diff) "," new-version-substr-begin)
+              new-version-comma-end (s/index-of (get-package-json-diff) "\"," new-version-substr-begin)
               new-version (subs (get-package-json-diff) new-version-substr-begin new-version-comma-end)]
              new-version)
         (catch Exception _ "")))
