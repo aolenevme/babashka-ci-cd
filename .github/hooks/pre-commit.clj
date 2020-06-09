@@ -40,7 +40,7 @@
 
 (try (do (validate-branch-name)
          (format-code)
-         (lint-code))
-     (catch Exception e
-       (println e)
+         (lint-code)
+         (kibit-lint))
+     (catch Exception _
        (System/exit 1)))
