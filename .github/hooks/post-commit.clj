@@ -18,8 +18,8 @@
 
 (defn get-version []
       (try
-        (let [new-version-substr-begin (+ (s/index-of (get-package-json-diff) "+  \"version\": \"") version-substr-length)
-              new-version-comma-end (s/index-of (get-package-json-diff) "\"," new-version-substr-begin)
+        (let [new-version-substr-begin (+ (str/index-of (get-package-json-diff) "+  \"version\": \"") version-substr-length)
+              new-version-comma-end (str/index-of (get-package-json-diff) "\"," new-version-substr-begin)
               new-version (subs (get-package-json-diff) new-version-substr-begin new-version-comma-end)]
              new-version)
         (catch Exception _ "")))
