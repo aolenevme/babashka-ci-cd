@@ -1,21 +1,17 @@
 #!/usr/bin/env bb
 
-(require '[clojure.java.shell :refer [sh]]
-         '[clojure.string :refer [trim]]
-         '[clojure.string :as s])
-
 (defn get-current-branch-name []
-      (-> (sh "git" "rev-parse" "--abbrev-ref" "HEAD")
+      (-> (shell/sh "git" "rev-parse" "--abbrev-ref" "HEAD")
           :out
-          (trim)))
+          (str/trim)))
 
 (defn create-commit-msg-regex []
-      (re-pattern (str "^" (s/replace-first (get-current-branch-name) #"\/" "\\\\/") ":{1} .{1,}$")))
+      (re-pattern (str "^" (str/replace-first (get-current-branch-name) #"\/" "\\\\/") ":{1} .{1,}$")))
 
 (defn get-current-commit-msg []
-      (-> (sh "cat" ".git/COMMIT_EDITMSG")
+      (-> (shell/sh "cat" ".git/COMMIT_EDITMSG")
           :out
-          (trim)))
+          (str/trim)))
 
 (defn valid-commit-msg? []
       (re-matches (create-commit-msg-regex) (get-current-commit-msg)))

@@ -1,22 +1,18 @@
 #!/usr/bin/env bb
 
-(require '[clojure.java.shell :refer [sh]]
-         '[clojure.string :as s])
-
-
 (defn get-top-level-directory []
-      (-> (sh "git" "rev-parse" "--show-toplevel")
+      (-> (shell/sh "git" "rev-parse" "--show-toplevel")
           :out
-          (s/trim)))
+          (str/trim)))
 
 (defn path->package-json []
       (str (get-top-level-directory) "/package.json"))
 
 
 (defn get-package-json-diff []
-      (-> (sh "git" "diff" "HEAD^..HEAD" "--" (path->package-json))
+      (-> (shell/sh "git" "diff" "HEAD^..HEAD" "--" (path->package-json))
           :out
-          (s/trim)))
+          (str/trim)))
 
 (def version-substr-length 15)
 
@@ -31,9 +27,9 @@
 (try
   (when-let [version (get-version)
              is-version-increased? (not= (count version) 0)]
-            (-> (sh "git" "tag" "-a" (str "v" version) "-m" version)
+            (-> (shell/sh "git" "tag" "-a" (str "v" version) "-m" version)
                 :out
-                (s/trim)
+                (str/trim)
                 (println)))
   (catch Exception e
     (println e)

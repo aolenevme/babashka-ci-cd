@@ -1,5 +1,4 @@
 #!/usr/bin/env bb
-
 (require '[clojure.java.shell :refer [sh]]
          '[clojure.string :as s])
 
