@@ -38,9 +38,9 @@
            (println out)
            (when-not (zero? exit) (System/exit 1))))
 
-(try (do (validate-branch-name)
-         (format-code)
-         (lint-code)
-         (kibit-lint))
+(try (validate-branch-name)
+     (format-code)
+     (lint-code)
+     (kibit-lint)
      (catch Exception _
        (System/exit 1)))
