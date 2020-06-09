@@ -1,19 +1,16 @@
 #!/usr/bin/env bb
 
-(require '[clojure.java.shell :refer [sh]]
-         '[clojure.string :refer [trim]])
-
 (defn validate-branch-name [] (load-file ".github/hooks/pre-push.clj"))
 
 (defn format-code []
-      (let [format-res (sh "clj"
+      (let [format-res (shell/sh "clj"
                            "-Sdeps"
                            "{:deps {mvxcvi/cljstyle {:git/url \"https://github.com/greglook/cljstyle.git\", :sha \"c8bc620aeadd022136bb333970c03edf41627417\"}}}"
                            "-m"
                            "cljstyle.main"
                            "fix"
                            "src")
-            git-add-res (sh "git" "add" ".")
+            git-add-res (shell/sh "git" "add" ".")
             format-exit (:exit format-res)
             git-add-exit (:exit git-add-res)
             format-out (:out format-res)
@@ -25,14 +22,14 @@
                      (System/exit 1))))
 
 (defn lint-code []
-      (let [lint-res (sh "clj-kondo" "--lint" "src")
+      (let [lint-res (shell/sh "clj-kondo" "--lint" "src")
             exit (:exit lint-res)
             out (:out lint-res)]
            (println out)
            (when-not (or (= exit 2) (zero? exit)) (System/exit 1))))
 
 (defn kibit-lint []
-      (let [lint-res (sh "lein" "kibit")
+      (let [lint-res (shell/sh "lein" "kibit")
             exit (:exit lint-res)
             out (:out lint-res)]
            (println out)
