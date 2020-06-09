@@ -1,14 +1,11 @@
 #!/usr/bin/env bb
 
-(require '[clojure.java.shell :refer [sh]]
-         '[clojure.string :refer [trim]])
-
 (def branch-regex #"^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$")
 
 (defn get-current-branch-name []
-  (-> (sh "git" "rev-parse" "--abbrev-ref" "HEAD")
+  (-> (shell/sh "git" "rev-parse" "--abbrev-ref" "HEAD")
       :out
-      (trim)))
+      (str/trim)))
 
 (defn valid-branch-name? []
       (re-matches branch-regex (get-current-branch-name)))
