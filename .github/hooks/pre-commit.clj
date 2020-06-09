@@ -31,6 +31,13 @@
            (println out)
            (when-not (or (= exit 2) (zero? exit)) (System/exit 1))))
 
+(defn kibit-lint []
+      (let [lint-res (sh "lein" "kibit")
+            exit (:exit lint-res)
+            out (:out lint-res)]
+           (println out)
+           (when-not (zero? exit) (System/exit 1))))
+
 (try (do (validate-branch-name)
          (format-code)
          (lint-code))
