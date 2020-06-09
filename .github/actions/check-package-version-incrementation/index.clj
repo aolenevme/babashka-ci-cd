@@ -1,11 +1,11 @@
 #!/usr/bin/env bb
 
 (def package-json-diff (first *command-line-args*))
-(def version-substr-length 12)
 
 (defn is-version-incremented? []
       (try
-        (let [old-version-substr-begin (+ (str/index-of package-json-diff "-  \"version\": \"") version-substr-length)
+        (let [version-substr-length 12
+              old-version-substr-begin (+ (str/index-of package-json-diff "-  \"version\": \"") version-substr-length)
               new-version-substr-begin (+ (str/index-of package-json-diff "+  \"version\": \"") version-substr-length)
               old-version-comma-end (str/index-of package-json-diff "," old-version-substr-begin)
               new-version-comma-end (str/index-of package-json-diff "," new-version-substr-begin)
@@ -16,9 +16,6 @@
              (= (compare splitted-new-version splitted-old-version) 1))
         (catch Exception _ false)))
 
-(defn print-error-msg []
-      (println "Please, increment version in package.json before the merging."))
-
 (when-not (is-version-incremented?)
-          (print-error-msg)
+          (println "Please, increment version in package.json before the merging.")
           (System/exit 1))

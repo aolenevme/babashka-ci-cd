@@ -3,7 +3,7 @@
 (def title-regex (re-pattern (first *command-line-args*)))
 (def ref-name (second *command-line-args*))
 (def title (second (next *command-line-args*)))
-(def description (second (next (next *command-line-args*))))
+(def description (second (nnext *command-line-args*)))
 
 (defn valid-title? [] (re-matches title-regex title))
 
@@ -11,7 +11,7 @@
 
 (defn is-description-not-empty? []
       (let [description-length (count description)]
-           (> description-length 0)))
+           (pos? description-length)))
 
 (when-not (valid-title?)
           (println "The title of the pull request does not match regex pattern: " title-regex)

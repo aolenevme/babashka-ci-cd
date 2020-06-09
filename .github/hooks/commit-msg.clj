@@ -1,5 +1,6 @@
 #!/usr/bin/env bb
 
+
 (defn get-current-branch-name []
       (-> (shell/sh "git" "rev-parse" "--abbrev-ref" "HEAD")
           :out

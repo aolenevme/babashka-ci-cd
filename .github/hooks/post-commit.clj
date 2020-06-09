@@ -25,12 +25,13 @@
         (catch Exception _ "")))
 
 (try
-  (when-let [version (get-version)
-             is-version-increased? (not= (count version) 0)]
-            (-> (shell/sh "git" "tag" "-a" (str "v" version) "-m" version)
-                :out
-                (str/trim)
-                (println)))
+  (let [version (get-version)
+        is-version-increased? (not= (count version) 0)]
+       (when is-version-increased?
+             (-> (shell/sh "git" "tag" "-a" (str "v" version) "-m" version)
+                 :out
+                 (str/trim)
+                 (println))))
   (catch Exception e
     (println e)
     (System/exit 1)))
