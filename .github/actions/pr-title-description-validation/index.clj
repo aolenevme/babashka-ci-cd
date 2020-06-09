@@ -1,7 +1,5 @@
 #!/usr/bin/env bb
 
-(require '[clojure.string :as str])
-
 (def title-regex (re-pattern (first *command-line-args*)))
 (def ref-name (second *command-line-args*))
 (def title (second (next *command-line-args*)))
