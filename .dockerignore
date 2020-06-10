@@ -1,0 +1,10 @@
+.git
+.github
+.idea
+npm-debug
+.cache-loader
+node_modules
+target
+.shadow-cljs
+.DS_Store
+
