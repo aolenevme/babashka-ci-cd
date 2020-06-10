@@ -1,26 +1,26 @@
-(defn get-top-level-directory
+(defn- get-top-level-directory
   []
   (-> (shell/sh "git" "rev-parse" "--show-toplevel")
       :out
       (str/trim)))
 
 
-(defn path->package-json
+(defn- path->package-json
   []
   (str (get-top-level-directory) "/package.json"))
 
 
-(defn get-package-json-diff
+(defn- get-package-json-diff
   []
   (-> (shell/sh "git" "diff" "HEAD^..HEAD" "--" (path->package-json))
       :out
       (str/trim)))
 
 
-(def version-substr-length 15)
+(def ^:private version-substr-length 15)
 
 
-(defn get-version
+(defn- get-version
   []
   (try
     (let [new-version-substr-begin (+ (str/index-of (get-package-json-diff) "+  \"version\": \"") version-substr-length)
