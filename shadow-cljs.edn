@@ -1,14 +1,12 @@
-;; shadow-cljs configuration
 {:builds
-   {:client {:modules {:main {:init-fn client.client/init}}, :target :browser},
+   {:client
+    {:modules {:client {:init-fn client.client/init}},
+     :output-dir "build/public/js",
+     :target :browser},
     :server
       {:main server.server/init,
-       :output-to "built-server/server.js",
-       :target :node-script}
-    :prepush
-            {:main githooks.prepush/init
-             :output-to "ci/githooks-clj/prepush.js"
-             :target :node-script}},
+       :output-to "build/server.js",
+       :target :node-script}},
  :dependencies [],
- :dev-http {8080 "public"},
+ :dev-http {8080 "build/public"},
  :source-paths ["src"]}
