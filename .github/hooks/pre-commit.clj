@@ -1,9 +1,9 @@
-(defn validate-branch-name
+(defn- validate-branch-name
   []
   (load-file ".github/hooks/pre-push.clj"))
 
 
-(defn format-code
+(defn- format-code
   []
   (let [format-res (shell/sh "clj"
                              "-Sdeps"
@@ -25,7 +25,7 @@
       (System/exit 1))))
 
 
-(defn lint-code
+(defn- lint-code
   []
   (let [lint-res (shell/sh "clj-kondo" "--lint" "src" ".github")
         exit (:exit lint-res)
@@ -34,7 +34,7 @@
     (when-not (or (= exit 2) (zero? exit)) (System/exit 1))))
 
 
-(defn kibit-lint
+(defn- kibit-lint
   []
   (let [lint-res (shell/sh "lein" "kibit" "src" ".github")
         exit (:exit lint-res)
