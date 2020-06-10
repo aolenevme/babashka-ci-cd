@@ -1,20 +1,20 @@
-(def title-regex (re-pattern (first *command-line-args*)))
-(def ref-name (second *command-line-args*))
-(def title (second (next *command-line-args*)))
-(def description (second (nnext *command-line-args*)))
+(def ^:private title-regex (re-pattern (first *command-line-args*)))
+(def ^:private ref-name (second *command-line-args*))
+(def ^:private title (second (next *command-line-args*)))
+(def ^:private description (second (nnext *command-line-args*)))
 
 
-(defn valid-title?
+(defn- valid-title?
   []
   (re-matches title-regex title))
 
 
-(defn title-starts-with-ref-name?
+(defn- title-starts-with-ref-name?
   []
   (str/starts-with? title ref-name))
 
 
-(defn is-description-not-empty?
+(defn- is-description-not-empty?
   []
   (let [description-length (count description)]
     (pos? description-length)))

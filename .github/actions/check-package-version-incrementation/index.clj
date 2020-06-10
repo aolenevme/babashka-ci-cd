@@ -1,7 +1,7 @@
-(def package-json-diff (first *command-line-args*))
+(def ^:private package-json-diff (first *command-line-args*))
 
 
-(defn is-version-incremented?
+(defn- is-version-incremented?
   []
   (try
     (let [version-substr-length 12
