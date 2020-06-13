@@ -1,0 +1,11 @@
+name: Build workflow
+on:
+  pull_request:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Auth in Google Cloud
+        run: echo "Privet!"
