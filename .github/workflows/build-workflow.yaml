@@ -1,0 +1,20 @@
+name: Build workflow
+on: [pull_request, push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '296.0.1'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - name: Extract branch name
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF////-})"
+        id: extract_branch
+      - name: Build
+        run: gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ steps.extract_branch.outputs.branch }} .
+      - name: Publish
+        run: gcloud run deploy ${{ steps.extract_branch.outputs.branch }} --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ steps.extract_branch.outputs.branch }} --quiet --region us-central1 --platform managed
