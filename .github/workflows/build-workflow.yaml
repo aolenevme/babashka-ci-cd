@@ -1,19 +1,6 @@
 name: Build workflow
 on:
-  pull_request:
-    branches:
-      - master
-      - develop
-      - 'feat/**'
-      - 'hotfix/**'
-      - 'release/**'
   push:
-    branches:
-      - master
-      - develop
-      - 'feat/**'
-      - 'hotfix/**'
-      - 'release/**'
 jobs:
   build:
     runs-on: ubuntu-latest
