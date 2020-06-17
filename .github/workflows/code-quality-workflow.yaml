@@ -7,4 +7,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Code quality check
-        uses: ./.github/actions/code-quality-check
+        run: |
+          docker build -t app -f /home/runner/work/purechat/purechat/./.github/actions/code-quality-check/Dockerfile .
+          docker run app
