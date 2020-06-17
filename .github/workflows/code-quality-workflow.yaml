@@ -7,4 +7,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Lint
-        run: docker run -v $PWD/.github:/.github --rm borkdude/babashka bb -f ./.github/common-scripts/lint-code.clj
+        run: docker run -v $PWD/.github:/.github --rm borkdude/clj-kondo bb -f ./.github/common-scripts/lint-code.clj
