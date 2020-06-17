@@ -1,4 +1,4 @@
-(try (load-file ".github/common-scripts/validate-branch-name.clj")
+(try (load-file "../../common-scripts/validate-branch-name.clj")
      (load-file ".github/common-scripts/lint-code.clj")
      (load-file ".github/common-scripts/kibit-lint.clj")
      (catch Exception _

@@ -1,3 +1,6 @@
+(println "1")
+
+
 (let [format-res (shell/sh "clj"
                            "-Sdeps"
                            "{:deps {mvxcvi/cljstyle {:git/url \"https://github.com/greglook/cljstyle.git\", :sha \"c8bc620aeadd022136bb333970c03edf41627417\"}}}"
