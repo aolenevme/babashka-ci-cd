@@ -1,7 +1,7 @@
 (println "3")
 
 
-(let [lint-res (shell/sh "clj-kondo" "--lint" "src" ".github")
+(let [lint-res (shell/sh "clj-kondo" "--lint" ".github")
       exit (:exit lint-res)
       out (:out lint-res)]
   (println out)
