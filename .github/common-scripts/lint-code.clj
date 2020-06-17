@@ -5,7 +5,7 @@
 (println (shell/sh "cat"))
 
 
-(let [lint-res (shell/sh "clj-kondo" "--lint" "./src" "./.github")
+(let [lint-res (shell/sh "clj-kondo" "--lint" "src" ".github")
       exit (:exit lint-res)
       out (:out lint-res)]
   (println out)
