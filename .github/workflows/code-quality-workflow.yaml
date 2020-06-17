@@ -7,10 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install clj-kondo
-        run: |
-          curl -sLO https://raw.githubusercontent.com/borkdude/clj-kondo/master/script/install-clj-kondo
-          chmod +x install-clj-kondo
-          ./install-clj-kondo
+        run: npm install -g clj-kondo
       - name: Code quality check
         run: |
           docker build -t app -f /home/runner/work/purechat/purechat/./.github/actions/code-quality-check/Dockerfile .
