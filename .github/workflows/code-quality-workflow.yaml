@@ -12,4 +12,7 @@ jobs:
           echo "::set-output name=lint_code::$(cat ./.github/common-scripts/lint-code.clj | tr -d '\n')"
           echo "::set-output name=kibit_lint::$(cat ./.github/common-scripts/kibit-lint.clj | tr -d '\n')"
       - name: Lint the code
-        run: echo ${{ steps.code_content.outputs.lint_code }} ${{ steps.code_content.outputs.kibit_lint }}
+        uses: ./.github/actions/code-quality-check
+        with:
+          lint-code-file-content:  ${{steps.code_content.outputs.lint_code}}
+          kibit-lint-file-content: ${{steps.code_content.outputs.kibit_lint}}
