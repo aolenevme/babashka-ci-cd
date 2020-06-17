@@ -2,9 +2,4 @@ FROM borkdude/babashka
 
 COPY ./ ./
 
-RUN cat
-RUN ls
-
-COPY index.clj /index.clj
-
-ENTRYPOINT ["bb", "-f", "/index.clj"]
+ENTRYPOINT ["bb", "-f", "./.github/actions/code-quality-check/index.clj"]
