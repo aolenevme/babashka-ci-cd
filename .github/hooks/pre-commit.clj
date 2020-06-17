@@ -15,7 +15,7 @@
 
 (defn- kibit-lint
   []
-  (load-file ".github/common-scripts/lint-code.clj"))
+  (load-file ".github/common-scripts/kibit-lint.clj"))
 
 
 (try (validate-branch-name)
