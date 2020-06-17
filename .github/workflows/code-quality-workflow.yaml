@@ -7,4 +7,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Lint
-        run: docker run -v $PWD/src:/src --rm borkdude/clj-kondo clj-kondo --lint src .github
+        run: docker run -v $PWD/src:/src $PWD/.github:/.github --rm borkdude/clj-kondo clj-kondo --lint src .github
