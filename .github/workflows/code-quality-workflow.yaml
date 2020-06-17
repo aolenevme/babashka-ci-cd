@@ -1,0 +1,10 @@
+name: Code quality workflow
+on:
+  push:
+jobs:
+  code-quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Code quality check
+        uses: ./.github/actions/code-quality-check

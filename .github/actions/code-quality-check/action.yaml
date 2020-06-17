@@ -1,0 +1,4 @@
+name: Code quality check
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

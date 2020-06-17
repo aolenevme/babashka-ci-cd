@@ -1,5 +1,4 @@
-name: Check package.json version incrementation
-description: Check package.json version incrementation
+name: Release check
 inputs:
   package-json-diff:
     description: 'A diff between package.json`s on master branch and current branch'

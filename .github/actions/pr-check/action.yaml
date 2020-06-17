@@ -1,5 +1,4 @@
-name: Validation of PRs` titles and descriptions
-description: Check that pull request title is valid according to the regexp and description is not empty.
+name: PR check
 inputs:
   title-regex:
     description: 'A regex pattern to check if a pull request title is valid.'

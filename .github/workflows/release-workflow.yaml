@@ -4,12 +4,12 @@ on:
     branches:
       - 'release/**'
 jobs:
-  validate-pr-title-and-description:
+  pr-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Validate PR title and description
-        uses: ./.github/actions/pr-title-description-validation
+      - name: PR check
+        uses: ./.github/actions/pr-check
         with:
           title-regex: '^(develop|(release\/[a-z0-9._-]+)): [\d\D]+$'
           ref-name: ${{github.event.pull_request.head.ref}}
