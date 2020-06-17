@@ -1,4 +1,11 @@
 name: Code quality check
+inputs:
+  lint-code-file-content:
+    description: 'Code of the lint-code.clj script'
+    required: true
+  kibit-lint-file-content:
+    description: 'Code of the kibit-lint.clj script'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
