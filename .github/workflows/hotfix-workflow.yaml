@@ -4,14 +4,9 @@ on:
     branches:
       - 'hotfix/**'
 jobs:
-  validate-pr-title-and-description:
-    runs-on: ubuntu-latest
+  pr-check:
+    runs-on: my-ubuntu
     steps:
       - uses: actions/checkout@v1
-      - name: Validate PR title and description
-        uses: ./.github/actions/pr-title-description-validation
-        with:
-          title-regex: '^(master|(hotfix\/[a-z0-9._-]+)): [\d\D]+$'
-          ref-name: ${{github.event.pull_request.head.ref}}
-          title: ${{github.event.pull_request.title}}
-          description: ${{github.event.pull_request.body}}
+      - name: PR check
+        run: bb -f ./.github/common-scripts/pr-check.clj '^(master|(hotfix\/[a-z0-9._-]+))$' ${{github.event.pull_request.head.ref}} ${{github.event.pull_request.title}} ${{github.event.pull_request.body}}
