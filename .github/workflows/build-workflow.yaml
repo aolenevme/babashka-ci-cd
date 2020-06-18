@@ -3,7 +3,7 @@ on:
   merge:
 jobs:
   build-and-publish:
-    runs-on: ubuntu-latest
+    runs-on: my-ubuntu
     steps:
       - uses: actions/checkout@v1
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master

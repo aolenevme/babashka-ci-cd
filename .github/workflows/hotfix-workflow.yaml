@@ -5,7 +5,7 @@ on:
       - 'hotfix/**'
 jobs:
   pr-check:
-    runs-on: ubuntu-latest
+    runs-on: my-ubuntu
     steps:
       - uses: actions/checkout@v1
       - name: PR check
