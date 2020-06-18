@@ -5,13 +5,8 @@ on:
       - 'release/**'
 jobs:
   pr-check:
-    runs-on: ubuntu-latest
+    runs-on: my-ubuntu
     steps:
       - uses: actions/checkout@v1
       - name: PR check
-        uses: ./.github/actions/pr-check
-        with:
-          title-regex: '^(develop|(release\/[a-z0-9._-]+)): [\d\D]+$'
-          ref-name: ${{github.event.pull_request.head.ref}}
-          title: ${{github.event.pull_request.title}}
-          description: ${{github.event.pull_request.body}}
+        run: | bb -f ./.github/common-scripts/pr-check.clj <<< "^(develop|(release\/[a-z0-9._-]+)): [\d\D]+$" ${{github.event.pull_request.head.ref}} ${{github.event.pull_request.title}}  ${{github.event.pull_request.body}}
