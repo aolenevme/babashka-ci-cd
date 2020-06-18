@@ -1,6 +1,3 @@
-(println "2")
-
-
 (let [lint-res (shell/sh "lein" "kibit" "src" ".github")
       exit (:exit lint-res)
       out (:out lint-res)]

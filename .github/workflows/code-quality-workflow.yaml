@@ -1,4 +1,4 @@
-name: Code quality workflow
+name: Push workflow
 on:
   push:
 jobs:
@@ -6,6 +6,8 @@ jobs:
     runs-on: my-ubuntu
     steps:
       - uses: actions/checkout@v2
+      - name: Validate branch name
+        run: bb -f ./.github/common-scripts/validate-branch-name.clj
       - name: Lint with clj-kondo
         run: bb -f ./.github/common-scripts/lint-code.clj
       - name: Lint with kibit

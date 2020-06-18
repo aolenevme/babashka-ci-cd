@@ -1,7 +1,5 @@
 (def ^:private branch-regex #"^(master|develop|(feat|release|hotfix)\/[a-z0-9._-]+)$")
 
-(println "4")
-
 
 (defn- get-current-branch-name
   []
