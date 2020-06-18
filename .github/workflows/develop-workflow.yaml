@@ -11,4 +11,4 @@ jobs:
       - name: Get title regex
         id: title_regex
       - name: PR check
-        run: bb -f ./.github/common-scripts/pr-check.clj <<< "^(master|develop|((feat|release|hotfix)\/[a-z0-9._-]+)):: [\d\D]+$" ${{github.event.pull_request.head.ref}} ${{github.event.pull_request.title}}  ${{github.event.pull_request.body}}
+        run: bb -f ./.github/common-scripts/pr-check.clj <<< "^(master|develop|((feat|release|hotfix)\/[a-z0-9._-]+)){{':'}} [\d\D]+$" ${{github.event.pull_request.head.ref}} ${{github.event.pull_request.title}}  ${{github.event.pull_request.body}}
