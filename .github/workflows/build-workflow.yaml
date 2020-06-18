@@ -1,6 +1,6 @@
 name: Build workflow
 on:
-  merge:
+  push:
 jobs:
   build-and-publish:
     runs-on: my-ubuntu
