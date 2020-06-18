@@ -6,5 +6,5 @@ jobs:
     runs-on: my-ubuntu
     steps:
       - uses: actions/checkout@v2
-      - name: Run babashka
-        run: bb '(println 1234)'
+      - name: Lint with clj-kondo
+        run: bb -f ./.github/common-scripts/lint-code.clj
