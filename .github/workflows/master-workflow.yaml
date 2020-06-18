@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: PR check
-        run: | bb -f ./.github/common-scripts/pr-check.clj <<< "^(master|((release|hotfix)\/[a-z0-9._-]+)): [\d\D]+$" ${{github.event.pull_request.head.ref}} ${{github.event.pull_request.title}}  ${{github.event.pull_request.body}}
+        run: bb -f ./.github/common-scripts/pr-check.clj '^(master|((release|hotfix)\/[a-z0-9._-]+))$' ${{github.event.pull_request.head.ref}} ${{github.event.pull_request.title}} ${{github.event.pull_request.body}}
 
   release-check:
     runs-on: my-ubuntu
@@ -21,4 +21,4 @@ jobs:
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
           echo "::set-output name=package_json_diff::$(git diff origin/master:package.json HEAD:package.json | tr -d '\n')"
       - name: Check package.json version incrementation
-        run: | bb -f ./.github/common-scripts/release-check.clj <<< ${{steps.get_package_json_diff.outputs.package_json_diff}}
+        run: bb -f ./.github/common-scripts/release-check.clj ${{steps.get_package_json_diff.outputs.package_json_diff}}
