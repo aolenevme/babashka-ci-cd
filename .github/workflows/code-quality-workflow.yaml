@@ -8,3 +8,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Lint with clj-kondo
         run: bb -f ./.github/common-scripts/lint-code.clj
+      - name: Lint with kibit
+        run: bb -f ./.github/common-scripts/kibit-lint.clj
