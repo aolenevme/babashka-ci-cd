@@ -19,3 +19,4 @@ pom.xml.asc
 .hg/
 
 .cljs_node_repl/
+build/
