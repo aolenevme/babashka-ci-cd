@@ -4,4 +4,4 @@
 
 
 (deftest a-client-test
-  (is (= "Client test" "Client test")))
+  (is (= "Client test" "Cient test")))
