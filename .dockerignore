@@ -6,6 +6,5 @@ node_modules
 target
 .shadow-cljs
 .DS_Store
-out
 
 

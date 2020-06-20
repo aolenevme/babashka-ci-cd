@@ -8,7 +8,7 @@
        :output-to "build/server.js",
        :target :node-script}
     :test
-      {:output-to "out/node-tests.js"
+      {:output-to "build/node-tests.js"
        :autorun true
        :target :node-test}},
  :dependencies [],
