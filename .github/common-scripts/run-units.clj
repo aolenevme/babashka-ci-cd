@@ -1,4 +1,4 @@
-(let [test-res (shell/sh  "shadow-cljs" "release" "test")
+(let [test-res (shell/sh  "npx" "shadow-cljs" "release" "test")
       exit (:exit test-res)
       out (:out test-res)]
   (println out)
