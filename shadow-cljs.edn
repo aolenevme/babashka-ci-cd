@@ -6,7 +6,11 @@
     :server
       {:main server.server/init,
        :output-to "build/server.js",
-       :target :node-script}},
+       :target :node-script}
+    :test
+      {:output-to "build/node-tests.js"
+       :autorun true
+       :target :node-test}},
  :dependencies [],
  :dev-http {8080 "build/public"},
  :source-paths ["src"]}
