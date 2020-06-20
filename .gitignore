@@ -19,3 +19,5 @@ pom.xml.asc
 .hg/
 
 .cljs_node_repl/
+out/
+build/
