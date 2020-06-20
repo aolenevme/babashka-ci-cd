@@ -1,4 +1,4 @@
-name: Push workflow
+name: Code quality workflow
 on:
   push:
 jobs:
