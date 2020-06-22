@@ -1,16 +1,11 @@
 {:builds
-   {:client
-    {:modules {:client {:init-fn client.client/init}},
-     :output-dir "build/public/js",
-     :target :browser},
-    :server
-      {:main server.server/init,
-       :output-to "build/server.js",
-       :target :node-script}
-    :test
-      {:output-to "build/node-tests.js"
-       :autorun true
-       :target :node-test}},
+   {:app
+    {:target :node-script
+     :main app.init/main
+     :output-to "build/app.js"}
+    :tests
+      {:target :node-test
+       :output-to "build/tests.js"
+       :autorun true}},
  :dependencies [],
- :dev-http {8080 "build/public"},
  :source-paths ["src"]}
