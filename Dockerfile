@@ -8,7 +8,7 @@ COPY ./ ./
 
 RUN yarn install --frozen-lockfile
 
-RUN ./node_modules/shadow-cljs/cli/runner.js release server client
+RUN ./node_modules/shadow-cljs/cli/runner.js release app
 
 
 FROM node:12-alpine as runner
