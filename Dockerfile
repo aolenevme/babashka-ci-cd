@@ -17,4 +17,4 @@ WORKDIR /app
 
 COPY --from=builder /app/build .
 
-CMD ["sh", "-c", "node ./public/js/client.js"]
+CMD ["sh", "-c", "node ./app.js"]
