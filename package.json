@@ -1,5 +1,5 @@
 {
-  "name": "purechat",
+  "name": "babashka-ci-cd",
   "version": "0.2.8",
   "private": true,
   "devDependencies": {
