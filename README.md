@@ -1,7 +1,7 @@
 # babashka-ci-cd
 A template of a CI/CD for frontend applications
 
-This is my experiment to build a fully feature CI/CD using Clojure scripting.
+This is my experiment to build a fully featured CI/CD using Clojure scripting.
 
 * Git branching model: https://nvie.com/posts/a-successful-git-branching-model/
 * CI/CD runner: [Github Actions](https://github.com/features/actions) with a self-hosted runner on [Google Cloud](https://cloud.google.com/) to run [babashka](https://github.com/borkdude/babashka) scripts
